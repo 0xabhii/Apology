@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sorry 💗</title>
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:Arial,sans-serif;background:linear-gradient(135deg,#fff4f8,#ffd7e7,#fff1f6);color:#633548;display:grid;place-items:center;padding:22px;overflow:hidden}
+.card{width:min(560px,94vw);background:#ffffffdc;backdrop-filter:blur(15px);border:1px solid #fff;border-radius:32px;padding:34px 24px;text-align:center;box-shadow:0 22px 65px #b8427025;position:relative}
+.bubble{font-size:64px;animation:bounce 1.8s infinite}@keyframes bounce{50%{transform:translateY(-7px) rotate(3deg)}}
+h1{margin:8px 0 5px;color:#a83e67;font-size:42px}.tiny{color:#9a6a7d;margin:0 0 25px}
+.heartbox{height:145px;position:relative;margin:5px auto 15px;display:grid;place-items:center}
+.bigheart{font-size:90px;color:#ff699b;filter:drop-shadow(0 10px 15px #ff699b55);cursor:pointer;transition:.25s}
+.bigheart:hover{transform:scale(1.12)}
+.options{display:grid;gap:12px;max-width:380px;margin:auto}
+button{border:0;border-radius:18px;padding:15px 18px;font-size:16px;font-weight:700;cursor:pointer;transition:.2s;min-height:50px}
+button:hover{transform:translateY(-2px)}
+.pink{background:#ed5d8d;color:#fff;box-shadow:0 8px 20px #ed5d8d38}
+.soft{background:#fff0f5;color:#ad426b;border:1px solid #ffd1df}
+.response{min-height:60px;margin-top:18px;padding:16px;border-radius:18px;background:#fff3f7;color:#a33d64;font-weight:700;display:none}
+.small{font-size:12px;color:#b07b91;margin-top:18px}
+.float{position:fixed;pointer-events:none;animation:up 4s linear forwards;z-index:0}@keyframes up{from{transform:translateY(110vh) scale(.7);opacity:0}15%{opacity:.8}to{transform:translateY(-15vh) scale(1.2);opacity:0}}
+.progress{display:flex;justify-content:center;gap:7px;margin:18px 0}.dot{width:8px;height:8px;border-radius:50%;background:#ffd0df}.dot.active{background:#ed5d8d;width:22px;border-radius:10px}
+@media(max-width:420px){h1{font-size:35px}.card{padding:28px 17px}}
+</style>
+</head>
+<body>
+<main class="card" id="app">
+<div class="bubble">🥺</div>
+<h1>I'm sorry 💗</h1>
+<p class="tiny">I owe you a proper apology.</p>
+
+<div class="progress"><span class="dot active"></span><span class="dot"></span><span class="dot"></span></div>
+
+<div class="heartbox">
+<div class="bigheart" id="heart" role="button" tabindex="0" aria-label="Tap the heart">♡</div>
+</div>
+
+<div class="options">
+<button class="pink" id="apology">Tap for my apology 💌</button>
+<button class="soft" id="hug">Send me a hug first 🫂</button>
+<button class="soft" id="forgive">Maybe... I forgive you 💕</button>
+</div>
+
+<div class="response" id="response" aria-live="polite"></div>
+<div class="small">P.S. You matter to me. A lot. ♡</div>
+</main>
+
+<script>
+const r=document.getElementById('response'), heart=document.getElementById('heart');
+const dots=[...document.querySelectorAll('.dot')];
+
+function show(text,step=1,count=12){
+  r.textContent=text;r.style.display='block';
+  dots.forEach((d,i)=>d.classList.toggle('active',i<=step));
+  for(let i=0;i<count;i++){
+    const x=document.createElement('span');x.className='float';
+    x.textContent=['♡','♥','💗','✦','🌸'][Math.floor(Math.random()*5)];
+    x.style.left=Math.random()*100+'vw';
+    x.style.fontSize=(15+Math.random()*20)+'px';
+    x.style.animationDelay=Math.random()*1.2+'s';
+    document.body.appendChild(x);setTimeout(()=>x.remove(),5000);
+  }
+}
+document.getElementById('apology').addEventListener('click',()=>show('I’m really, really sorry. 🥺💗 I should’ve been there. Please don’t stay mad at me.',1,18));
+document.getElementById('hug').addEventListener('click',()=>show('Okay, come here first. 🫂💗 One very long apology hug. No words needed.',1,22));
+document.getElementById('forgive').addEventListener('click',()=>show('YOU FORGAVE ME?! 🥹💕 I promise I appreciate it more than you know.',2,30));
+function heartTap(){heart.textContent=heart.textContent==='♡'?'♥':'♡';show('This heart is officially yours. 💗',2,10)}
+heart.addEventListener('click',heartTap);heart.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();heartTap()}});
+</script>
+</body>
+</html>
